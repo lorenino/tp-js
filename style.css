@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=HK+Grotesk:wght@300;400;500;600;700&display=swap');
+
+/* Arrière-plan */
+body {
+    background-image: url("img/bgpkm.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    font-family: 'HK Grotesk', sans-serif;
+    background-color: #f2f2f2;
+}
+
+/* Bouton */
+#btn, #validate, .btnCalcul {
+    background-color: #ffcb05;
+    border-color: #ffcb05;
+    color: #333;
+    font-size: 18px;
+    border-radius: 20px;
+    font-family: 'HK Grotesk', sans-serif;
+}
+
+/* Menu déroulant */
+.sel-type {
+    background-color: #fff;
+    color: #333;
+    font-size: 18px;
+    border-color: #ffcb05;
+    border-radius: 5px;
+    padding: 5px;
+    font-family: 'HK Grotesk', sans-serif;
+}
+
+/* Nom du Pokémon sélectionné */
+#pokemon-name {
+    font-size: 24px;
+    color: #ffcb05;
+    font-size: 36px;
+    text-align: center;
+    margin-top: 50px;
+    text-transform: capitalize;
+    font-family: 'HK Grotesk', sans-serif;
+}
+
+/* Image du Pokémon sélectionné */
+#image-container {
+    margin-top: 20px;
+    text-align: center; /* pour centrer l'image */
+}
+
+#image-container img {
+    display: inline-block; /* pour réduire la largeur à celle de l'image */
+    border: 5px solid #090908;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: black;
+}
+
+/* Style de la page */
+h1 {
+    color: #ffcb05;
+    font-size: 36px;
+    text-align: center;
+    margin-top: 50px;
+    font-family: 'HK Grotesk', sans-serif;
+}
+
+.formulaire {
+    color: #ffcb05;
+    font-size: 36px;
+    text-align: left;
+    margin-top: 50px;
+    font-family: 'HK Grotesk', sans-serif;
+}
+
+/* Paragraphe pour les noms des 5 premiers Pokémon */
+#myParag {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 20px;
+    font-family: 'HK Grotesk', sans-serif;
+}
