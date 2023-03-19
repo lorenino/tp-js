@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Import des stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+</head>
+<body>
+    <div id="container">
+        <!-- Bouton pour afficher les 5 premiers pokémons -->
+        <button id="btn" class="btn btn-primary btn-lg btn-block">
+            Afficher les 3 starters originaux
+        </button>
+        <!-- Paragraphe pour afficher les noms des 5 premiers pokémons -->
+        <p id="myParag"></p>
+        <!-- -->
+        <form class="formulaire">
+            <label for="nom">NOM :</label>
+            <input type="text" id="nom" name="nom"><br><br>
+            <label for="prenom">PRENOM :</label>
+            <input type="text" id="prenom" name="prenom"><br><br>
+            <button type="button" onclick="calculerChiffre()" class="btnCalcul">Calculer</button><br><br>
+            <label for="chiffre">CHIFFRE :</label>
+            <input type="text" id="chiffre" name="chiffre" readonly>
+        </form>
+
+        <br>
+        
+        <!-- Label et menu déroulant pour sélectionner un nombre -->
+        <label for="numbers"><h1>Teste le nombre obtenu :</h1></label>
+        <select class="sel-type" id="numbers"></select>
+        <!-- Bouton pour valider la sélection -->
+        <button id="validate" class="btn btn-primary">
+            Valider
+        </button>
+        <!-- Paragraphe pour afficher le nom du pokémon sélectionné -->
+        <p id="pokemon-name"></p>
+        <!-- Image pour afficher le Pokémon sélectionné -->
+        <div id="image-container"></div>
+
+
+    </div>
+    
+
+    <script>
+
+        //////FORMULAIRE 
+        //Calcul addition de la posiiton de toute les lettres
+        function sumOfLettersPositions(word) {
+            let sum = 0;
+            for (let i = 0; i < word.length; i++) {
+                sum += word.charCodeAt(i) - 96; // la position de 'a' est 97, donc on soustrait 96 pour commencer à 1
+            }
+            return sum;
+            }
+        //Calcul d'un chiffre entre 1 et 1008 pour definir un pokemon en fonction de son nom et prenom
+        function calculerChiffre() {
+			var nom = document.getElementById("nom").value;
+			var prenom = document.getElementById("prenom").value;
+			var x = sumOfLettersPositions(nom);
+			var y = sumOfLettersPositions(prenom);
+			var chiffre = Math.round((Math.sin(x*y) + 1) * 504);
+			document.getElementById("chiffre").value = chiffre;
+            return chiffre
+		}
+
+        ////// POKEMON
+        // CONFIGURATION DU MENU DEROULANT AVEC LE NOMBRE DE POKEMONS MAXIMUM
+        const select = document.getElementById("numbers");
+        for (let i = 1; i <= 1008; i++) {
+            const option = document.createElement("option");
+            option.value = i;
+            option.text = i;
+            select.appendChild(option);
+        }
+    
+        function fetchSomePokemons() {
+            return fetch('https://pokeapi.co/api/v2/pokemon?limit=1008');
+        }
+    
+        // LIAISON DES ELEMENTS HTML GRACE AUX IDENTIFIANTS POUR LES MODIFIER AVEC JAVASCRIPT
+        const myButton = document.getElementById('btn');
+        const myParag = document.getElementById('myParag');
+        const selectButton = document.getElementById("validate");
+        const imageContainer = document.getElementById('image-container');       
+        
+        // AFFICHAGE DES 5 PREMIERS POKEMONS AVEC LE BOUTON
+        myButton.addEventListener('click', function() {
+            fetchSomePokemons()
+                .then(response => response.json())
+                .then(data => {
+                    const pokemonNames = data.results.slice(0, 9).map(pokemon => pokemon.name);
+                    myParag.innerHTML = "Les noms des 3 starters originaux et leurs évolutions : " + pokemonNames.join(", ") + ".";
+                })
+                .catch(error => console.error(error));
+        }); 
+        
+        // AFFICHAGE DU NOM D'UN POKEMON EN FONCTION DU NOMBRE CHOISI DANS LE MENU DEROULANT
+        selectButton.addEventListener("click", function() {
+            const selectedValue = select.value;
+            fetch(`https://pokeapi.co/api/v2/pokemon/${selectedValue}`)
+                .then(response => response.json())
+                .then(data => {
+                    const pokemonName = data.name;
+                    const pokemonImage = new Image();
+                    pokemonImage.src = data.sprites.front_default;
+                    // Positionnement de l'image dans le conteneur
+                    pokemonImage.onload = function() {
+                        imageContainer.innerHTML = '';
+                        imageContainer.appendChild(pokemonImage);
+                    };
+                    document.getElementById("pokemon-name").textContent = pokemonName;
+                })
+                .catch(error => console.error(error));
+        });
+
+        
+    </script>
+
+</body>
+</html>
