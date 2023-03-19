@@ -1,6 +1,6 @@
 # tp-js
 
-## Fait grace a chat gpt ( je ne savais pas quoi mettre dans un readme)
+## Fait grâce à Chat GPT (je ne savais pas quoi mettre dans un README)
 
 Ce code est une page HTML qui permet d'interagir avec l'API de Pokémons pour afficher des informations sur ces derniers et pour effectuer des calculs avec des noms et prénoms donnés.
 ### Structure HTML
